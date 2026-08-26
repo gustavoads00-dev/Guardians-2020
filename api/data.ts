@@ -15,26 +15,26 @@ export default async function handler(req: any, res: any) {
 
       for (const sheet of SHEETS) {
         if (sheet.gid.startsWith('REPLACE_ME')) {
-            console.log(\`Skipping \${sheet.name} because GID is not configured.\`);
+            console.log(`Skipping ${sheet.name} because GID is not configured.`);
             debugInfo.push({ aba: sheet.name, status: 'skipped_missing_gid', linhas: 0 });
             continue;
         }
         
-        const url = \`\${BASE_URL}?gid=\${sheet.gid}&single=true&output=csv\`;
+        const url = `${BASE_URL}?gid=${sheet.gid}&single=true&output=csv`;
         
         try {
           const response = await fetch(url);
           
           if (!response.ok) {
-            console.warn(\`Failed to fetch sheet \${sheet.name} (Status: \${response.status})\`);
-            debugInfo.push({ aba: sheet.name, status: \`error_\${response.status}\`, linhas: 0 });
+            console.warn(`Failed to fetch sheet ${sheet.name} (Status: ${response.status})`);
+            debugInfo.push({ aba: sheet.name, status: `error_${response.status}`, linhas: 0 });
             continue;
           }
 
           const csv = await response.text();
           
           if (csv.trim().startsWith('<!DOCTYPE html>') || csv.trim().startsWith('<html')) { 
-             console.warn(\`Invalid content (HTML) received for sheet \${sheet.name}. Check GID.\`);
+             console.warn(`Invalid content (HTML) received for sheet ${sheet.name}. Check GID.`);
              debugInfo.push({ aba: sheet.name, status: 'error_html_response', linhas: 0 });
              continue;
           }
@@ -48,7 +48,7 @@ export default async function handler(req: any, res: any) {
             linhas: parsed.data.length
           });
         } catch (e: any) {
-          console.warn(\`Error fetching \${sheet.name}: \${e.message}\`);
+          console.warn(`Error fetching ${sheet.name}: ${e.message}`);
           debugInfo.push({ aba: sheet.name, status: 'error_exception', linhas: 0 });
         }
       }
