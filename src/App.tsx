@@ -474,13 +474,13 @@ export default function App() {
     const adsCaptacao = (data['meta-ads_dados'] || []).map((c: any) => ({ ...c, _sourceTab: 'captacao' }));
     const criativos = [...adsBranding, ...adsCaptacao];
     const leadsData = data['base_lovable'] || [];
-    const linksCriativos = data['Links - Criativos N8N'] || [];
-
     const linkMap = new Map<string, string>();
-    linksCriativos.forEach(l => {
-      const name = String(l['ad_name'] || '').trim();
-      const link = String(l['Link'] || '').trim();
-      if (name && link) linkMap.set(name, link);
+    criativos.forEach(c => {
+      const name = String(c.ad_name || c['Ad Name'] || c['Nome do anúncio'] || c['NOME DO ANÚNCIO'] || '').trim();
+      const link = String(c['Creative Instagram Permalink'] || c.permalink || '').trim();
+      if (name && link && !linkMap.has(name)) {
+        linkMap.set(name, link);
+      }
     });
 
     const startLimit = startOfDay(dateRange.start).getTime();
