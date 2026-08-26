@@ -1,11 +1,18 @@
-<div align="center">
+# Perpétuo Boneco - Pablo Dashboard
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+Este dashboard foi criado para monitorar vendas e tráfego em tempo real.
 
-  <h1>Built with AI Studio</h2>
+## Como publicar na Vercel
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+1. **Integração com GitHub**: Certifique-se de que todos os arquivos (incluindo a pasta `/api`) foram enviados para o seu repositório.
+2. **Configuração na Vercel**:
+   - **Framework Preset**: Vite
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+3. **Backend**: O backend está configurado como uma Serverless Function na pasta `/api`. A Vercel detectará isso automaticamente e criará a rota `/api/data`.
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+## Desenvolvimento Local
 
-</div>
+1. Instale as dependências: `npm install`
+2. Inicie o servidor de desenvolvimento: `npm run dev`
+3. O app estará disponível em `http://localhost:3000`
